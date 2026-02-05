@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selene - Éditeur de contenu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500&family=Open+Sans:wght@300;400;500&family=Lato:wght@300;400;700&family=Nunito:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Editor Base ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: #0d0d0d;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Header ===== */
+        .editor-header {
+            background: #111;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .editor-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: #d4af37;
+        }
+
+        .editor-logo small {
+            font-family: 'Raleway', sans-serif;
+            font-style: normal;
+            font-size: 0.8rem;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid rgba(212,175,55,0.3);
+            background: rgba(212,175,55,0.05);
+            color: #d4af37;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(212,175,55,0.15);
+            border-color: #d4af37;
+        }
+
+        .btn-primary {
+            background: #d4af37;
+            color: #0a0a0a;
+            font-weight: 500;
+            border-color: #d4af37;
+        }
+
+        .btn-primary:hover {
+            background: #e8c547;
+        }
+
+        /* ===== Layout ===== */
+        .editor-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: 220px;
+            background: #0f0f0f;
+            border-right: 1px solid rgba(212,175,55,0.15);
+            padding: 1rem 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-item {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(212,175,55,0.05);
+            color: #d4af37;
+        }
+
+        .sidebar-item.active {
+            background: rgba(212,175,55,0.08);
+            border-left-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .sidebar-item .icon {
+            font-size: 1.1rem;
+            width: 1.4rem;
+            text-align: center;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 3rem;
+            max-height: calc(100vh - 60px);
+        }
+
+        .section-panel {
+            display: none;
+            max-width: 800px;
+        }
+
+        .section-panel.active {
+            display: block;
+        }
+
+        .section-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-description {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* ===== Form Elements ===== */
+        .field {
+            margin-bottom: 1.5rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .field input[type="text"],
+        .field input[type="email"],
+        .field textarea,
+        .field select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .field textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .field input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: #1a1a1a;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .color-field {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .color-field .color-label {
+            min-width: 180px;
+        }
+
+        .color-field .color-hex {
+            font-family: monospace;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* ===== List Editor ===== */
+        .list-editor {
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid #222;
+            background: #1a1a1a;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item input {
+            flex: 1;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .list-item input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212,175,55,0.03);
+        }
+
+        .list-item .drag-handle {
+            color: #555;
+            cursor: grab;
+            font-size: 1rem;
+            user-select: none;
+        }
+
+        .list-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.2rem;
+            transition: color 0.2s;
+        }
+
+        .list-btn:hover {
+            color: #d4af37;
+        }
+
+        .list-btn.delete:hover {
+            color: #e74c3c;
+        }
+
+        .add-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            background: none;
+            border: 1px dashed #444;
+            border-radius: 6px;
+            color: #888;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .add-item-btn:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        /* ===== Image Upload ===== */
+        .image-upload {
+            border: 2px dashed #444;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .image-upload:hover,
+        .image-upload.dragover {
+            border-color: #d4af37;
+            background: rgba(212,175,55,0.03);
+        }
+
+        .image-upload .upload-text {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .image-upload .upload-icon {
+            font-size: 2rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-upload input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-preview img {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .image-preview .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== Symbol Picker ===== */
+        .symbol-picker-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: border-color 0.2s;
+        }
+
+        .symbol-picker-trigger:hover {
+            border-color: #d4af37;
+        }
+
+        .symbol-picker-trigger .current-symbol {
+            font-size: 1.4rem;
+            color: #d4af37;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+            padding: 0.5rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .symbol-option {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .symbol-option:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: #d4af37;
+        }
+
+        .symbol-option.selected {
+            background: rgba(212,175,55,0.2);
+            border-color: #d4af37;
+        }
+
+        .symbol-category {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0.5rem 0.2rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== Font Preview ===== */
+        .font-option {
+            padding: 0.5rem 1rem;
+        }
+
+        .font-preview-text {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            color: #d4af37;
+        }
+
+        /* ===== Cards for method/formation editors ===== */
+        .card-editor {
+            background: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-editor-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: #d4af37;
+        }
+
+        .card-editor .field {
+            margin-bottom: 0.8rem;
+        }
+
+        .card-editor .field:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== Helper messages ===== */
+        .help-box {
+            background: rgba(212,175,55,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .help-box strong {
+            color: #d4af37;
+        }
+
+        /* ===== Divider ===== */
+        .divider {
+            border: none;
+            border-top: 1px solid #222;
+            margin: 2rem 0;
+        }
+
+        /* ===== Toast notification ===== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1a1a1a;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .editor-body { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; overflow-x: auto; display: flex; padding: 0; border-right: none; border-bottom: 1px solid rgba(212,175,55,0.15); }
+            .sidebar-item { padding: 0.6rem 1rem; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; font-size: 0.8rem; }
+            .sidebar-item.active { border-left-color: transparent; border-bottom-color: #d4af37; }
+            .main-content { padding: 1.5rem; max-height: unset; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="editor-header">
+        <div class="editor-logo">
+            Selene <small>Éditeur de contenu</small>
+        </div>
+        <div class="header-actions">
+            <button class="btn" onclick="loadContentFile()">Charger content.json</button>
+            <button class="btn" onclick="downloadContent()">Sauvegarder config</button>
+            <button class="btn btn-primary" onclick="downloadAll()">&#10515; Télécharger le site</button>
+        </div>
+    </header>
+
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" accept=".json" style="display:none" onchange="handleFileLoad(event)">
+
+    <!-- Body -->
+    <div class="editor-body">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-item active" onclick="switchSection('general')">
+                <span class="icon">&#9881;</span> Général
+            </div>
+            <div class="sidebar-item" onclick="switchSection('hero')">
+                <span class="icon">&#9733;</span> Accueil
+            </div>
+            <div class="sidebar-item" onclick="switchSection('pourQui')">
+                <span class="icon">&#10068;</span> Pour qui
+            </div>
+            <div class="sidebar-item" onclick="switchSection('methodes')">
+                <span class="icon">&#9752;</span> Méthodes
+            </div>
+            <div class="sidebar-item" onclick="switchSection('resultats')">
+                <span class="icon">&#10022;</span> Résultats
+            </div>
+            <div class="sidebar-item" onclick="switchSection('formations')">
+                <span class="icon">&#9776;</span> Formations
+            </div>
+            <div class="sidebar-item" onclick="switchSection('passions')">
+                <span class="icon">&#9829;</span> Passions
+            </div>
+            <div class="sidebar-item" onclick="switchSection('contact')">
+                <span class="icon">&#9993;</span> Contact
+            </div>
+            <div class="sidebar-item" onclick="switchSection('style')">
+                <span class="icon">&#9998;</span> Style
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="main-content" id="mainContent">
+            <!-- Will be populated by JavaScript -->
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ================================================================
+    // STATE
+    // ================================================================
+    let content = null;
+
+    const DEFAULT_CONTENT = {
+        site: {
+            title: "Selene",
+            subtitle: "Coaching & Reiki",
+            name: "Céline Szecel",
+            description: "Selene - Coaching & Reiki par Céline Szecel. Accompagnement pour surmonter vos blocages, soins énergétiques et méditation.",
+            email: "contact@selene-coaching.com",
+            copyright: "© 2025 Selene - Céline Szecel. Tous droits réservés."
+        },
+        style: {
+            headingFont: "Cormorant Garamond",
+            bodyFont: "Raleway",
+            accentColor: "#d4af37",
+            backgroundColor: "#0a0a0a",
+            backgroundAltColor: "#111111",
+            textColor: "#f5f5f5",
+            textMutedColor: "#a0a0a0"
+        },
+        hero: { welcome: "Bienvenue", image: null },
+        pourQui: {
+            title: "Pour qui ?",
+            intro: "Je suis là pour toi.",
+            items: [
+                "Tu te sens stressé(e) ?",
+                "Tu veux te reconstruire après une épreuve de vie (divorce, décès d'un être cher, burn-out, etc.) ?",
+                "Tu as tout pour être heureux, mais tu ne te sens pas bien ?",
+                "Tu veux (re)découvrir qui tu es ?",
+                "Tu veux (re)définir ta mission de vie ?",
+                "Tu as des pensées négatives ?",
+                "Tu veux avoir confiance en toi ?",
+                "Tu veux reprendre goût à la vie ?"
+            ],
+            description: "Grâce au coaching, je t'aide à surmonter tes blocages inconscients et à être en accord avec toi-même. Je peux aussi te proposer des soins énergétiques pour améliorer ton bien-être et favoriser ta guérison. Les conseils de méditation te permettront de vivre avec moins de stress, dans l'instant présent."
+        },
+        methodes: {
+            title: "Méthodes",
+            items: [
+                { name: "Coaching", subtitle: "Coaching classique", description: "Surmonter des blocages inconscients.", image: null },
+                { name: "Reiki", subtitle: "Soins énergétiques", description: "Pour améliorer le bien-être et favoriser la guérison.", image: null },
+                { name: "Méditation", subtitle: "Pleine conscience", description: "Pour moins de stress et pour vivre dans l'instant présent.", image: null }
+            ]
+        },
+        resultats: {
+            title: "Tes résultats",
+            icon: "✦",
+            items: [
+                "Tu te sens bien dans ta peau.",
+                "Tu te sens plus serein(e).",
+                "Ton mindset est positif.",
+                "Tu es résilient(e).",
+                "Tu es prêt(e) à te reconstruire après une épreuve de vie.",
+                "Tu agis en conséquence.",
+                "Tu as confiance en toi.",
+                "Tu reprends goût à la vie."
+            ]
+        },
+        formations: {
+            title: "Mes formations",
+            items: [
+                { year: "2019", title: "Usui Reiki : Ier degré", description: "@Marijke Bisselink" },
+                { year: "2021", title: "Usui Reiki : IIe degré", description: "@Marijke Bisselink" },
+                { year: "2022", title: "Formation au coaching : Module 1", description: "@Une touche de joie - Laurence Cordonnier" },
+                { year: "2025", title: "Usui Reiki : Maître praticien", description: "@Marijke Bisselink" }
+            ]
+        },
+        passions: {
+            title: "Mes passions",
+            icon: "♥",
+            items: [
+                "Développement personnel", "Les animaux", "Musique des années '80",
+                "Tim Burton", "Star Wars (ancienne trilogie)", "Meubles Louis XV",
+                "Archéologie et Égyptologie"
+            ]
+        },
+        contact: {
+            title: "Contact",
+            intro: "Prêt(e) à commencer ton voyage vers le bien-être ?",
+            text: "N'hésite pas à me contacter pour en savoir plus sur mes services ou pour prendre rendez-vous."
+        }
+    };
+
+    // ================================================================
+    // SYMBOLS
+    // ================================================================
+    const SYMBOLS = {
+        "Céleste": ["☽", "☾", "★", "☆", "✦", "✧", "✯", "✵", "❂", "⊛", "✫", "✬", "☀", "✺", "❋"],
+        "Nature": ["✿", "❀", "❁", "⚘", "♣", "♧", "☘", "❃", "✾", "❊", "✻", "✼", "❖", "❧", "☙"],
+        "Coeurs": ["♥", "♡", "❤", "❥", "❣", "❦", "💛", "🤍", "💜", "🩷"],
+        "Spirituel": ["☯", "☮", "✡", "⚛", "♾", "☸", "⚕", "☥", "⊕", "◉"],
+        "Décoratif": ["◆", "◇", "◈", "●", "○", "◎", "▸", "▹", "◂", "◃", "⁂", "※", "†", "‡", "§"]
+    };
+
+    // ================================================================
+    // FONTS
+    // ================================================================
+    const HEADING_FONTS = [
+        "Cormorant Garamond", "Playfair Display", "Cinzel", "Libre Baskerville",
+        "Lora", "EB Garamond", "Great Vibes", "Dancing Script"
+    ];
+
+    const BODY_FONTS = [
+        "Raleway", "Montserrat", "Open Sans", "Lato", "Nunito", "Quicksand"
+    ];
+
+    // ================================================================
+    // HELPERS
+    // ================================================================
+    function esc(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ================================================================
+    // SECTION SWITCHING
+    // ================================================================
+    let currentSection = 'general';
+
+    function switchSection(name) {
+        currentSection = name;
+        document.querySelectorAll('.sidebar-item').forEach((el, i) => {
+            const sections = ['general','hero','pourQui','methodes','resultats','formations','passions','contact','style'];
+            el.classList.toggle('active', sections[i] === name);
+        });
+        renderCurrentSection();
+    }
+
+    function renderCurrentSection() {
+        const main = document.getElementById('mainContent');
+        const renderers = {
+            general: renderGeneral,
+            hero: renderHero,
+            pourQui: renderPourQui,
+            methodes: renderMethodes,
+            resultats: renderResultats,
+            formations: renderFormations,
+            passions: renderPassions,
+            contact: renderContact,
+            style: renderStyle
+        };
+        main.innerHTML = renderers[currentSection]();
+        attachEventListeners();
+    }
+
+    // ================================================================
+    // SECTION RENDERERS
+    // ================================================================
+
+    function renderGeneral() {
+        return `
+            <h2 class="section-header">Général</h2>
+            <p class="section-description">Les informations de base de ton site.</p>
+            <div class="help-box">
+                <strong>Comment ça marche ?</strong><br>
+                Modifie les champs ci-dessous, puis clique sur <strong>« Télécharger le site »</strong> en haut à droite.
+                Tu recevras un fichier <code>index.html</code> et un fichier <code>content.json</code>.
+                Ensuite, va sur <strong>GitHub.com</strong> dans ton dépôt, clique sur <strong>« Add file » → « Upload files »</strong>,
+                dépose les deux fichiers, et clique sur <strong>« Commit changes »</strong>. C'est tout !
+            </div>
+            <div class="field">
+                <label>Nom du site</label>
+                <input type="text" value="${esc(content.site.title)}" onchange="content.site.title = this.value">
+            </div>
+            <div class="field">
+                <label>Sous-titre</label>
+                <input type="text" value="${esc(content.site.subtitle)}" onchange="content.site.subtitle = this.value">
+            </div>
+            <div class="field">
+                <label>Ton nom</label>
+                <input type="text" value="${esc(content.site.name)}" onchange="content.site.name = this.value">
+            </div>
+            <div class="field">
+                <label>Description (pour Google)</label>
+                <textarea onchange="content.site.description = this.value">${esc(content.site.description)}</textarea>
+            </div>
+            <div class="field">
+                <label>Email de contact</label>
+                <input type="email" value="${esc(content.site.email)}" onchange="content.site.email = this.value">
+            </div>
+            <div class="field">
+                <label>Copyright</label>
+                <input type="text" value="${esc(content.site.copyright)}" onchange="content.site.copyright = this.value">
+            </div>
+        `;
+    }
+
+    function renderHero() {
+        const hasImage = content.hero.image;
+        return `
+            <h2 class="section-header">Accueil (Hero)</h2>
+            <p class="section-description">La première chose que les visiteurs voient.</p>
+            <div class="field">
+                <label>Texte de bienvenue</label>
+                <input type="text" value="${esc(content.hero.welcome)}" onchange="content.hero.welcome = this.value">
+            </div>
+            <hr class="divider">
+            <div class="field">
+                <label>Image personnalisée (remplace l'illustration par défaut)</label>
+                <div class="image-upload" id="heroImageUpload">
+                    <div class="upload-icon">&#128247;</div>
+                    <div class="upload-text">Glisse une image ici ou clique pour choisir</div>
+                    <input type="file" accept="image/*" onchange="handleHeroImage(event)">
+                </div>
+                ${hasImage ? `
+                <div class="image-preview" id="heroPreview">
+                    <img src="${content.hero.image}" alt="Preview">
+                    <button class="remove-image" onclick="removeHeroImage()">&#10005;</button>
+                </div>
+                ` : ''}
+            </div>
+        `;
+    }
+
+    function renderPourQui() {
+        const items = content.pourQui.items.map((item, i) => `
+            <div class="list-item">
+                <span class="drag-handle">&#9776;</span>
+                <input type="text" value="${esc(item)}" onchange="content.pourQui.items[${i}] = this.value">
+                <button class="list-btn delete" onclick="removeListItem('pourQui', ${i})">&#10005;</button>
+            </div>
+        `).join('');
+
+        return `
+            <h2 class="section-header">Pour qui ?</h2>
+            <p class="section-description">La section qui décrit tes clients potentiels.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.pourQui.title)}" onchange="content.pourQui.title = this.value">
+            </div>
+            <div class="field">
+                <label>Phrase d'introduction</label>
+                <input type="text" value="${esc(content.pourQui.intro)}" onchange="content.pourQui.intro = this.value">
+            </div>
+            <div class="field">
+                <label>Questions / Situations</label>
+                <div class="list-editor">${items}</div>
+                <button class="add-item-btn" onclick="addListItem('pourQui')">+ Ajouter une question</button>
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <textarea onchange="content.pourQui.description = this.value">${esc(content.pourQui.description)}</textarea>
+            </div>
+        `;
+    }
+
+    function renderMethodes() {
+        const cards = content.methodes.items.map((m, i) => `
+            <div class="card-editor">
+                <div class="card-editor-header">
+                    <span class="card-editor-title">Méthode ${i + 1}</span>
+                    <button class="list-btn delete" onclick="removeMethode(${i})">&#10005;</button>
+                </div>
+                <div class="field">
+                    <label>Nom</label>
+                    <input type="text" value="${esc(m.name)}" onchange="content.methodes.items[${i}].name = this.value">
+                </div>
+                <div class="field">
+                    <label>Sous-titre</label>
+                    <input type="text" value="${esc(m.subtitle)}" onchange="content.methodes.items[${i}].subtitle = this.value">
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" value="${esc(m.description)}" onchange="content.methodes.items[${i}].description = this.value">
+                </div>
+                <div class="field">
+                    <label>Image (optionnel)</label>
+                    <div class="image-upload" style="padding:1rem;">
+                        <div class="upload-text" style="font-size:0.8rem;">Glisse ou clique pour ajouter une image</div>
+                        <input type="file" accept="image/*" onchange="handleMethodeImage(event, ${i})">
+                    </div>
+                    ${m.image ? `
+                    <div class="image-preview" style="margin-top:0.5rem;">
+                        <img src="${m.image}" alt="Preview" style="max-height:100px;">
+                        <button class="remove-image" onclick="removeMethodeImage(${i})">&#10005;</button>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <h2 class="section-header">Méthodes</h2>
+            <p class="section-description">Tes services de coaching, reiki et méditation.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.methodes.title)}" onchange="content.methodes.title = this.value">
+            </div>
+            ${cards}
+            <button class="add-item-btn" onclick="addMethode()">+ Ajouter une méthode</button>
+        `;
+    }
+
+    function renderResultats() {
+        const items = content.resultats.items.map((item, i) => `
+            <div class="list-item">
+                <span class="drag-handle">&#9776;</span>
+                <input type="text" value="${esc(item)}" onchange="content.resultats.items[${i}] = this.value">
+                <button class="list-btn delete" onclick="removeListItem('resultats', ${i})">&#10005;</button>
+            </div>
+        `).join('');
+
+        return `
+            <h2 class="section-header">Résultats</h2>
+            <p class="section-description">Ce que tes clients obtiennent.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.resultats.title)}" onchange="content.resultats.title = this.value">
+            </div>
+            <div class="field">
+                <label>Symbole devant chaque résultat</label>
+                <div class="symbol-picker-trigger" onclick="toggleSymbolPicker('resultats')">
+                    <span class="current-symbol">${content.resultats.icon}</span>
+                    <span>Changer le symbole</span>
+                </div>
+                <div id="symbolPicker-resultats" style="display:none;">
+                    ${renderSymbolGrid('resultats')}
+                </div>
+            </div>
+            <div class="field">
+                <label>Résultats</label>
+                <div class="list-editor">${items}</div>
+                <button class="add-item-btn" onclick="addListItem('resultats')">+ Ajouter un résultat</button>
+            </div>
+        `;
+    }
+
+    function renderFormations() {
+        const cards = content.formations.items.map((f, i) => `
+            <div class="card-editor">
+                <div class="card-editor-header">
+                    <span class="card-editor-title">${esc(f.year)} - ${esc(f.title)}</span>
+                    <button class="list-btn delete" onclick="removeFormation(${i})">&#10005;</button>
+                </div>
+                <div class="field">
+                    <label>Année</label>
+                    <input type="text" value="${esc(f.year)}" onchange="content.formations.items[${i}].year = this.value">
+                </div>
+                <div class="field">
+                    <label>Titre</label>
+                    <input type="text" value="${esc(f.title)}" onchange="content.formations.items[${i}].title = this.value">
+                </div>
+                <div class="field">
+                    <label>Description / Formateur</label>
+                    <input type="text" value="${esc(f.description)}" onchange="content.formations.items[${i}].description = this.value">
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <h2 class="section-header">Formations</h2>
+            <p class="section-description">Ton parcours de formation.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.formations.title)}" onchange="content.formations.title = this.value">
+            </div>
+            ${cards}
+            <button class="add-item-btn" onclick="addFormation()">+ Ajouter une formation</button>
+        `;
+    }
+
+    function renderPassions() {
+        const items = content.passions.items.map((item, i) => `
+            <div class="list-item">
+                <span class="drag-handle">&#9776;</span>
+                <input type="text" value="${esc(item)}" onchange="content.passions.items[${i}] = this.value">
+                <button class="list-btn delete" onclick="removeListItem('passions', ${i})">&#10005;</button>
+            </div>
+        `).join('');
+
+        return `
+            <h2 class="section-header">Passions</h2>
+            <p class="section-description">Tes centres d'intérêt.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.passions.title)}" onchange="content.passions.title = this.value">
+            </div>
+            <div class="field">
+                <label>Symbole</label>
+                <div class="symbol-picker-trigger" onclick="toggleSymbolPicker('passions')">
+                    <span class="current-symbol">${content.passions.icon}</span>
+                    <span>Changer le symbole</span>
+                </div>
+                <div id="symbolPicker-passions" style="display:none;">
+                    ${renderSymbolGrid('passions')}
+                </div>
+            </div>
+            <div class="field">
+                <label>Passions</label>
+                <div class="list-editor">${items}</div>
+                <button class="add-item-btn" onclick="addListItem('passions')">+ Ajouter une passion</button>
+            </div>
+        `;
+    }
+
+    function renderContact() {
+        return `
+            <h2 class="section-header">Contact</h2>
+            <p class="section-description">La section contact en bas du site.</p>
+            <div class="field">
+                <label>Titre de la section</label>
+                <input type="text" value="${esc(content.contact.title)}" onchange="content.contact.title = this.value">
+            </div>
+            <div class="field">
+                <label>Phrase d'accroche</label>
+                <input type="text" value="${esc(content.contact.intro)}" onchange="content.contact.intro = this.value">
+            </div>
+            <div class="field">
+                <label>Texte</label>
+                <textarea onchange="content.contact.text = this.value">${esc(content.contact.text)}</textarea>
+            </div>
+            <div class="field">
+                <label>Email (défini dans Général)</label>
+                <input type="email" value="${esc(content.site.email)}" disabled style="opacity:0.5;">
+            </div>
+        `;
+    }
+
+    function renderStyle() {
+        return `
+            <h2 class="section-header">Style</h2>
+            <p class="section-description">Les couleurs et polices de ton site.</p>
+
+            <h3 style="color:#d4af37; font-family:'Cormorant Garamond',serif; margin-bottom:1rem; margin-top:1rem;">Polices</h3>
+            <div class="field">
+                <label>Police des titres</label>
+                <select onchange="content.style.headingFont = this.value; updateFontPreview();">
+                    ${HEADING_FONTS.map(f => `<option value="${f}" style="font-family:'${f}'" ${content.style.headingFont === f ? 'selected' : ''}>${f}</option>`).join('')}
+                </select>
+                <div class="font-preview-text" id="headingFontPreview" style="font-family:'${content.style.headingFont}',serif; font-style:italic;">
+                    Selene - ${content.style.headingFont}
+                </div>
+            </div>
+            <div class="field">
+                <label>Police du texte</label>
+                <select onchange="content.style.bodyFont = this.value; updateFontPreview();">
+                    ${BODY_FONTS.map(f => `<option value="${f}" style="font-family:'${f}'" ${content.style.bodyFont === f ? 'selected' : ''}>${f}</option>`).join('')}
+                </select>
+                <div class="font-preview-text" id="bodyFontPreview" style="font-family:'${content.style.bodyFont}',sans-serif; font-size:1rem; color:#ccc;">
+                    Ceci est un exemple de texte en ${content.style.bodyFont}
+                </div>
+            </div>
+
+            <hr class="divider">
+            <h3 style="color:#d4af37; font-family:'Cormorant Garamond',serif; margin-bottom:1rem;">Couleurs</h3>
+
+            <div class="field">
+                <div class="color-field">
+                    <span class="color-label">Couleur accent (or)</span>
+                    <input type="color" value="${content.style.accentColor}" onchange="content.style.accentColor = this.value; this.nextElementSibling.textContent = this.value;">
+                    <span class="color-hex">${content.style.accentColor}</span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="color-field">
+                    <span class="color-label">Fond principal</span>
+                    <input type="color" value="${content.style.backgroundColor}" onchange="content.style.backgroundColor = this.value; this.nextElementSibling.textContent = this.value;">
+                    <span class="color-hex">${content.style.backgroundColor}</span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="color-field">
+                    <span class="color-label">Fond alternatif</span>
+                    <input type="color" value="${content.style.backgroundAltColor}" onchange="content.style.backgroundAltColor = this.value; this.nextElementSibling.textContent = this.value;">
+                    <span class="color-hex">${content.style.backgroundAltColor}</span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="color-field">
+                    <span class="color-label">Couleur du texte</span>
+                    <input type="color" value="${content.style.textColor}" onchange="content.style.textColor = this.value; this.nextElementSibling.textContent = this.value;">
+                    <span class="color-hex">${content.style.textColor}</span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="color-field">
+                    <span class="color-label">Texte secondaire</span>
+                    <input type="color" value="${content.style.textMutedColor}" onchange="content.style.textMutedColor = this.value; this.nextElementSibling.textContent = this.value;">
+                    <span class="color-hex">${content.style.textMutedColor}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    // ================================================================
+    // SYMBOL PICKER
+    // ================================================================
+    function renderSymbolGrid(target) {
+        let html = '<div class="symbol-grid">';
+        for (const [cat, syms] of Object.entries(SYMBOLS)) {
+            html += `<div class="symbol-category">${cat}</div>`;
+            for (const s of syms) {
+                const selected = content[target].icon === s ? 'selected' : '';
+                html += `<div class="symbol-option ${selected}" onclick="pickSymbol('${target}', '${s}')">${s}</div>`;
+            }
+        }
+        html += '</div>';
+        return html;
+    }
+
+    function toggleSymbolPicker(target) {
+        const el = document.getElementById('symbolPicker-' + target);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function pickSymbol(target, symbol) {
+        content[target].icon = symbol;
+        renderCurrentSection();
+        showToast('Symbole changé : ' + symbol);
+    }
+
+    // ================================================================
+    // LIST OPERATIONS
+    // ================================================================
+    function addListItem(section) {
+        content[section].items.push('');
+        renderCurrentSection();
+        // Focus the new empty input
+        setTimeout(() => {
+            const inputs = document.querySelectorAll('.list-editor .list-item:last-child input');
+            if (inputs.length) inputs[inputs.length - 1].focus();
+        }, 50);
+    }
+
+    function removeListItem(section, index) {
+        content[section].items.splice(index, 1);
+        renderCurrentSection();
+    }
+
+    // ================================================================
+    // METHOD OPERATIONS
+    // ================================================================
+    function addMethode() {
+        content.methodes.items.push({ name: '', subtitle: '', description: '', image: null });
+        renderCurrentSection();
+    }
+
+    function removeMethode(index) {
+        content.methodes.items.splice(index, 1);
+        renderCurrentSection();
+    }
+
+    function handleMethodeImage(event, index) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            content.methodes.items[index].image = e.target.result;
+            renderCurrentSection();
+            showToast('Image ajoutée !');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeMethodeImage(index) {
+        content.methodes.items[index].image = null;
+        renderCurrentSection();
+    }
+
+    // ================================================================
+    // FORMATION OPERATIONS
+    // ================================================================
+    function addFormation() {
+        content.formations.items.push({ year: '', title: '', description: '' });
+        renderCurrentSection();
+    }
+
+    function removeFormation(index) {
+        content.formations.items.splice(index, 1);
+        renderCurrentSection();
+    }
+
+    // ================================================================
+    // IMAGE HANDLING
+    // ================================================================
+    function handleHeroImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            content.hero.image = e.target.result;
+            renderCurrentSection();
+            showToast('Image ajoutée !');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeHeroImage() {
+        content.hero.image = null;
+        renderCurrentSection();
+    }
+
+    // ================================================================
+    // FONT PREVIEW
+    // ================================================================
+    function updateFontPreview() {
+        renderCurrentSection();
+    }
+
+    // ================================================================
+    // DRAG & DROP
+    // ================================================================
+    function attachEventListeners() {
+        document.querySelectorAll('.image-upload').forEach(el => {
+            el.addEventListener('dragover', (e) => { e.preventDefault(); el.classList.add('dragover'); });
+            el.addEventListener('dragleave', () => el.classList.remove('dragover'));
+            el.addEventListener('drop', (e) => {
+                e.preventDefault();
+                el.classList.remove('dragover');
+                const input = el.querySelector('input[type="file"]');
+                if (e.dataTransfer.files.length && input) {
+                    input.files = e.dataTransfer.files;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+    }
+
+    // ================================================================
+    // LOAD / SAVE content.json
+    // ================================================================
+    function loadContentFile() {
+        document.getElementById('fileInput').click();
+    }
+
+    function handleFileLoad(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const loaded = JSON.parse(e.target.result);
+                content = mergeDeep(JSON.parse(JSON.stringify(DEFAULT_CONTENT)), loaded);
+                renderCurrentSection();
+                showToast('Contenu chargé !');
+            } catch (err) {
+                alert('Erreur : ce fichier n\'est pas un JSON valide.\n\n' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function mergeDeep(target, source) {
+        for (const key of Object.keys(source)) {
+            if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key]) && typeof target[key] === 'object') {
+                mergeDeep(target[key], source[key]);
+            } else {
+                target[key] = source[key];
+            }
+        }
+        return target;
+    }
+
+    function downloadContent() {
+        downloadFile('content.json', JSON.stringify(content, null, 2), 'application/json');
+        showToast('content.json téléchargé !');
+    }
+
+    // ================================================================
+    // DOWNLOAD
+    // ================================================================
+    function downloadFile(filename, data, type = 'text/html') {
+        const blob = new Blob([data], { type });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function downloadAll() {
+        const html = generateHTML();
+        downloadFile('index.html', html, 'text/html');
+        setTimeout(() => {
+            downloadFile('content.json', JSON.stringify(content, null, 2), 'application/json');
+        }, 500);
+        showToast('Fichiers téléchargés !');
+    }
+
+    // ================================================================
+    // HTML GENERATION
+    // ================================================================
+    function generateHTML() {
+        const c = content;
+        const accent = c.style.accentColor;
+        const accentRgb = hexToRgb(accent);
+        const accentLight = lightenColor(accent, 20);
+        const accentDark = darkenColor(accent, 15);
+
+        const googleFontsUrl = buildGoogleFontsUrl(c.style.headingFont, c.style.bodyFont);
+
+        // Hero image: use uploaded image or default SVG
+        const heroFigure = c.hero.image
+            ? `<div class="hero-figure"><img src="${c.hero.image}" alt="${esc(c.site.title)}" style="max-width:250px; max-height:300px; border-radius:10px;"></div>`
+            : getDefaultHeroSvg(accent);
+
+        // Method icons
+        const methodIcons = getMethodIcons(accent);
+
+        // Methods HTML
+        const methodsHtml = c.methodes.items.map((m, i) => {
+            const icon = m.image
+                ? `<div class="method-icon"><img src="${m.image}" alt="${esc(m.name)}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;"></div>`
+                : `<div class="method-icon">${methodIcons[i] || methodIcons[0]}</div>`;
+            return `                <div class="method-card">
+                    ${icon}
+                    <h3>${esc(m.name)}</h3>
+                    <p class="method-subtitle">${esc(m.subtitle)}</p>
+                    <p>${esc(m.description)}</p>
+                </div>`;
+        }).join('\n');
+
+        // Results HTML
+        const resultIcon = c.resultats.icon;
+        const resultIconCode = resultIcon.codePointAt(0) ? `&#${resultIcon.codePointAt(0)};` : resultIcon;
+        const resultsHtml = c.resultats.items.map(item => `                <div class="result-item">
+                    <span class="result-icon">${resultIconCode}</span>
+                    <p>${esc(item)}</p>
+                </div>`).join('\n');
+
+        // Pour qui items
+        const pourQuiItems = c.pourQui.items.map(item => `                <li>${esc(item)}</li>`).join('\n');
+
+        // Formations HTML
+        const formationsHtml = c.formations.items.map(f => `                <div class="timeline-item">
+                    <span class="timeline-year">${esc(f.year)}</span>
+                    <div class="timeline-content">
+                        <h3>${esc(f.title)}</h3>
+                        <p>${esc(f.description)}</p>
+                    </div>
+                </div>`).join('\n');
+
+        // Passions HTML
+        const passionIcon = c.passions.icon;
+        const passionIconCode = passionIcon.codePointAt(0) ? `&#${passionIcon.codePointAt(0)};` : passionIcon;
+        const passionsHtml = c.passions.items.map(item => `                <div class="passion-item">
+                    <span class="passion-icon">${passionIconCode}</span>
+                    <p>${esc(item)}</p>
+                </div>`).join('\n');
+
+        return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="${esc(c.site.description)}">
+    <title>${esc(c.site.title)} - ${esc(c.site.subtitle)} | ${esc(c.site.name)}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="${googleFontsUrl}" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --color-bg: ${c.style.backgroundColor};
+            --color-bg-alt: ${c.style.backgroundAltColor};
+            --color-bg-card: #1a1a1a;
+            --color-gold: ${accent};
+            --color-gold-light: ${accentLight};
+            --color-gold-dark: ${accentDark};
+            --color-text: ${c.style.textColor};
+            --color-text-muted: ${c.style.textMutedColor};
+            --color-white: #ffffff;
+            --font-heading: '${c.style.headingFont}', Georgia, serif;
+            --font-body: '${c.style.bodyFont}', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">${esc(c.site.title)}</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#pour-qui">${esc(c.pourQui.title)}</a></li>
+                <li><a href="#methodes">${esc(c.methodes.title)}</a></li>
+                <li><a href="#resultats">${esc(c.resultats.title)}</a></li>
+                <li><a href="#formations">${esc(c.formations.title)}</a></li>
+                <li><a href="#contact">${esc(c.contact.title)}</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="accueil" class="hero">
+        <div class="hero-content">
+            <div class="decorative-branch left"></div>
+            <p class="hero-welcome">${esc(c.hero.welcome)}</p>
+            <div class="logo-circle">
+                <div class="moon-arc"></div>
+                <div class="star">
+                    <svg viewBox="0 0 100 100" width="40" height="40">
+                        <polygon points="50,0 54,40 100,50 54,60 50,100 46,60 0,50 46,40" fill="url(#starGradient)"/>
+                        <defs>
+                            <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#fff"/>
+                                <stop offset="50%" style="stop-color:${accent}"/>
+                                <stop offset="100%" style="stop-color:#fff"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">${esc(c.site.title)}</span>
+            </div>
+            <h1 class="hero-title">${esc(c.site.subtitle)}</h1>
+${heroFigure}
+            <p class="hero-name">${esc(c.site.name)}</p>
+            <div class="decorative-branch right"></div>
+        </div>
+        <a href="#pour-qui" class="scroll-indicator">
+            <span></span>
+        </a>
+    </header>
+
+    <section id="pour-qui" class="section">
+        <div class="container">
+            <h2 class="section-title">${esc(c.pourQui.title)}</h2>
+            <div class="pour-qui-intro">
+                <p>${esc(c.pourQui.intro)}</p>
+            </div>
+            <ul class="pour-qui-list">
+${pourQuiItems}
+            </ul>
+            <div class="pour-qui-description">
+                <p>${esc(c.pourQui.description)}</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="methodes" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">${esc(c.methodes.title)}</h2>
+            <div class="methods-grid">
+${methodsHtml}
+            </div>
+        </div>
+    </section>
+
+    <section id="resultats" class="section">
+        <div class="container">
+            <h2 class="section-title">${esc(c.resultats.title)}</h2>
+            <div class="results-grid">
+${resultsHtml}
+            </div>
+        </div>
+    </section>
+
+    <section id="formations" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">${esc(c.formations.title)}</h2>
+            <div class="timeline">
+${formationsHtml}
+            </div>
+        </div>
+    </section>
+
+    <section id="passions" class="section">
+        <div class="container">
+            <h2 class="section-title">${esc(c.passions.title)}</h2>
+            <div class="passions-grid">
+${passionsHtml}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">${esc(c.contact.title)}</h2>
+            <div class="contact-content">
+                <p class="contact-intro">${esc(c.contact.intro)}</p>
+                <p class="contact-text">${esc(c.contact.text)}</p>
+                <div class="contact-info">
+                    <a href="mailto:${esc(c.site.email)}" class="contact-link">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="${accent}" stroke-width="1.5" fill="none">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M2,4 L12,13 L22,4"/>
+                        </svg>
+                        <span>${esc(c.site.email)}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <span class="logo-text">${esc(c.site.title)}</span>
+            </div>
+            <p class="footer-tagline">${esc(c.site.subtitle)}</p>
+            <p class="footer-copyright">${esc(c.site.copyright)}</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.method-card, .result-item, .timeline-item, .passion-item').forEach(el => {
+            observer.observe(el);
+        });
+    <\/script>
+</body>
+</html>`;
+    }
+
+    // ================================================================
+    // DEFAULT SVG ASSETS (from original site)
+    // ================================================================
+    function getDefaultHeroSvg(accent) {
+        return `            <div class="hero-figure">
+                <svg class="meditation-figure" viewBox="0 0 200 250" width="200" height="250">
+                    <g class="leaves" stroke="${accent}" stroke-width="1" fill="none">
+                        <path d="M30,180 Q20,150 40,120 Q30,150 30,180"/>
+                        <path d="M25,185 Q10,160 25,130 Q20,160 25,185"/>
+                        <path d="M35,175 Q30,145 50,110 Q35,145 35,175"/>
+                        <path d="M170,180 Q180,150 160,120 Q170,150 170,180"/>
+                        <path d="M175,185 Q190,160 175,130 Q180,160 175,185"/>
+                        <path d="M165,175 Q170,145 150,110 Q165,145 165,175"/>
+                    </g>
+                    <g class="upper-leaves" stroke="#d4af37" stroke-width="1" fill="none">
+                        <path d="M90,50 Q85,30 100,15 Q95,35 90,50"/>
+                        <path d="M110,50 Q115,30 100,15 Q105,35 110,50"/>
+                        <path d="M95,55 Q90,40 100,25 Q95,45 95,55"/>
+                        <path d="M105,55 Q110,40 100,25 Q105,45 105,55"/>
+                    </g>
+                    <g class="figure" stroke="#fff" stroke-width="1.5" fill="none">
+                        <ellipse cx="100" cy="90" rx="18" ry="22"/>
+                        <path d="M85,75 Q80,85 82,100"/>
+                        <path d="M115,75 Q120,85 118,100"/>
+                        <path d="M92,88 Q95,86 98,88" stroke-width="1"/>
+                        <path d="M102,88 Q105,86 108,88" stroke-width="1"/>
+                        <path d="M97,98 Q100,100 103,98" stroke-width="1"/>
+                        <path d="M100,112 L100,160"/>
+                        <path d="M100,125 Q70,100 75,60"/>
+                        <path d="M100,125 Q130,100 125,60"/>
+                        <path d="M75,60 Q85,45 100,40 Q115,45 125,60"/>
+                        <path d="M100,160 Q70,170 50,180 Q80,175 100,180"/>
+                        <path d="M100,160 Q130,170 150,180 Q120,175 100,180"/>
+                    </g>
+                    <circle cx="100" cy="140" r="8" stroke="${accent}" stroke-width="1" fill="none"/>
+                    <path d="M96,140 Q100,135 104,140 Q100,138 96,140" stroke="${accent}" stroke-width="1" fill="none"/>
+                </svg>
+            </div>`;
+    }
+
+    function getMethodIcons(accent) {
+        return [
+            `<svg viewBox="0 0 60 60" width="60" height="60">
+                            <circle cx="30" cy="20" r="10" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                            <path d="M20,35 Q30,45 40,35" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                            <path d="M15,50 L30,40 L45,50" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                        </svg>`,
+            `<svg viewBox="0 0 60 60" width="60" height="60">
+                            <circle cx="30" cy="30" r="20" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                            <path d="M30,15 L30,10" stroke="${accent}" stroke-width="1.5"/>
+                            <path d="M30,50 L30,45" stroke="${accent}" stroke-width="1.5"/>
+                            <path d="M15,30 L10,30" stroke="${accent}" stroke-width="1.5"/>
+                            <path d="M50,30 L45,30" stroke="${accent}" stroke-width="1.5"/>
+                            <circle cx="30" cy="30" r="5" stroke="${accent}" stroke-width="1" fill="none"/>
+                        </svg>`,
+            `<svg viewBox="0 0 60 60" width="60" height="60">
+                            <ellipse cx="30" cy="45" rx="20" ry="5" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                            <path d="M20,45 Q20,30 30,25 Q40,30 40,45" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                            <circle cx="30" cy="18" r="8" stroke="${accent}" stroke-width="1.5" fill="none"/>
+                        </svg>`
+        ];
+    }
+
+    // ================================================================
+    // COLOR UTILITIES
+    // ================================================================
+    function hexToRgb(hex) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return { r, g, b };
+    }
+
+    function lightenColor(hex, percent) {
+        const { r, g, b } = hexToRgb(hex);
+        const lighten = (c) => Math.min(255, Math.round(c + (255 - c) * percent / 100));
+        return `#${lighten(r).toString(16).padStart(2,'0')}${lighten(g).toString(16).padStart(2,'0')}${lighten(b).toString(16).padStart(2,'0')}`;
+    }
+
+    function darkenColor(hex, percent) {
+        const { r, g, b } = hexToRgb(hex);
+        const darken = (c) => Math.max(0, Math.round(c * (1 - percent / 100)));
+        return `#${darken(r).toString(16).padStart(2,'0')}${darken(g).toString(16).padStart(2,'0')}${darken(b).toString(16).padStart(2,'0')}`;
+    }
+
+    function buildGoogleFontsUrl(headingFont, bodyFont) {
+        const hf = headingFont.replace(/ /g, '+');
+        const bf = bodyFont.replace(/ /g, '+');
+        return `https://fonts.googleapis.com/css2?family=${hf}:ital,wght@0,400;0,500;0,600;1,400;1,500&family=${bf}:wght@300;400;500&display=swap`;
+    }
+
+    // ================================================================
+    // INIT
+    // ================================================================
+    function init() {
+        // Try to load content.json from same directory
+        fetch('content.json')
+            .then(r => r.ok ? r.json() : Promise.reject())
+            .then(data => {
+                content = mergeDeep(JSON.parse(JSON.stringify(DEFAULT_CONTENT)), data);
+                renderCurrentSection();
+                showToast('Contenu chargé depuis content.json');
+            })
+            .catch(() => {
+                content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+                renderCurrentSection();
+            });
+    }
+
+    init();
+    </script>
+</body>
+</html>
