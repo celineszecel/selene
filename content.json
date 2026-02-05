@@ -1,0 +1,118 @@
+{
+  "site": {
+    "title": "Selene",
+    "subtitle": "Coaching & Reiki",
+    "name": "Céline Szecel",
+    "description": "Selene - Coaching & Reiki par Céline Szecel. Accompagnement pour surmonter vos blocages, soins énergétiques et méditation.",
+    "email": "contact@selene-coaching.com",
+    "copyright": "© 2025 Selene - Céline Szecel. Tous droits réservés."
+  },
+  "style": {
+    "headingFont": "Cormorant Garamond",
+    "bodyFont": "Raleway",
+    "accentColor": "#d4af37",
+    "backgroundColor": "#0a0a0a",
+    "backgroundAltColor": "#111111",
+    "textColor": "#f5f5f5",
+    "textMutedColor": "#a0a0a0"
+  },
+  "hero": {
+    "welcome": "Bienvenue",
+    "image": null
+  },
+  "pourQui": {
+    "title": "Pour qui ?",
+    "intro": "Je suis là pour toi.",
+    "items": [
+      "Tu te sens stressé(e) ?",
+      "Tu veux te reconstruire après une épreuve de vie (divorce, décès d'un être cher, burn-out, etc.) ?",
+      "Tu as tout pour être heureux, mais tu ne te sens pas bien ?",
+      "Tu veux (re)découvrir qui tu es ?",
+      "Tu veux (re)définir ta mission de vie ?",
+      "Tu as des pensées négatives ?",
+      "Tu veux avoir confiance en toi ?",
+      "Tu veux reprendre goût à la vie ?"
+    ],
+    "description": "Grâce au coaching, je t'aide à surmonter tes blocages inconscients et à être en accord avec toi-même. Je peux aussi te proposer des soins énergétiques pour améliorer ton bien-être et favoriser ta guérison. Les conseils de méditation te permettront de vivre avec moins de stress, dans l'instant présent."
+  },
+  "methodes": {
+    "title": "Méthodes",
+    "items": [
+      {
+        "name": "Coaching",
+        "subtitle": "Coaching classique",
+        "description": "Surmonter des blocages inconscients.",
+        "image": null
+      },
+      {
+        "name": "Reiki",
+        "subtitle": "Soins énergétiques",
+        "description": "Pour améliorer le bien-être et favoriser la guérison.",
+        "image": null
+      },
+      {
+        "name": "Méditation",
+        "subtitle": "Pleine conscience",
+        "description": "Pour moins de stress et pour vivre dans l'instant présent.",
+        "image": null
+      }
+    ]
+  },
+  "resultats": {
+    "title": "Tes résultats",
+    "icon": "✦",
+    "items": [
+      "Tu te sens bien dans ta peau.",
+      "Tu te sens plus serein(e).",
+      "Ton mindset est positif.",
+      "Tu es résilient(e).",
+      "Tu es prêt(e) à te reconstruire après une épreuve de vie.",
+      "Tu agis en conséquence.",
+      "Tu as confiance en toi.",
+      "Tu reprends goût à la vie."
+    ]
+  },
+  "formations": {
+    "title": "Mes formations",
+    "items": [
+      {
+        "year": "2019",
+        "title": "Usui Reiki : Ier degré",
+        "description": "@Marijke Bisselink"
+      },
+      {
+        "year": "2021",
+        "title": "Usui Reiki : IIe degré",
+        "description": "@Marijke Bisselink"
+      },
+      {
+        "year": "2022",
+        "title": "Formation au coaching : Module 1",
+        "description": "@Une touche de joie - Laurence Cordonnier"
+      },
+      {
+        "year": "2025",
+        "title": "Usui Reiki : Maître praticien",
+        "description": "@Marijke Bisselink"
+      }
+    ]
+  },
+  "passions": {
+    "title": "Mes passions",
+    "icon": "♥",
+    "items": [
+      "Développement personnel",
+      "Les animaux",
+      "Musique des années '80",
+      "Tim Burton",
+      "Star Wars (ancienne trilogie)",
+      "Meubles Louis XV",
+      "Archéologie et Égyptologie"
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Prêt(e) à commencer ton voyage vers le bien-être ?",
+    "text": "N'hésite pas à me contacter pour en savoir plus sur mes services ou pour prendre rendez-vous."
+  }
+}
