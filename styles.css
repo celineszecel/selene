@@ -1,66 +1,174 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selene — Coaching & Reiki | Céline Szecel</title>
+:root{
+  --paper:#f5f3ef;
+  --ink:#111111;
+  --gold:#d8c07a;
+  --muted:#666;
+}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-<body>
+body{
+  font-family:'Raleway', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+}
 
-<nav class="navbar">
-  <div class="nav-container">
+/* ================= NAVBAR ================= */
 
-    <div class="nav-logo-block">
-      <img src="images/IMG_2792.jpg" alt="Logo Selene" class="nav-logo-img">
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#111;
+  padding:15px 0;
+  z-index:1000;
+}
 
-      <div class="nav-title-text">
-        <div class="nav-main-title">Coaching & Reiki</div>
-        <div class="nav-subtitle">ÉQUILIBRE · CLARTÉ · AUTONOMIE</div>
-      </div>
-    </div>
+.nav-container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    <ul class="nav-menu">
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#">Parcours</a></li>
-      <li><a href="#">Pour qui ?</a></li>
-      <li><a href="#">Déroulement</a></li>
-      <li><a href="#">Offres</a></li>
-      <li><a href="#">Ma vision</a></li>
-      <li><a href="#">Formations</a></li>
-      <li><a href="#" class="nav-cta">Prendre rendez-vous</a></li>
-    </ul>
+/* Logo + Text Block */
+.nav-logo-block{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
 
-  </div>
-</nav>
+.nav-logo-img{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+}
 
-<header class="hero">
-  <div class="container hero-content">
-    <div>
-      <h1 class="hero-title">
-        Un accompagnement structuré pour retrouver clarté, équilibre et autonomie.
-      </h1>
+/* Titles */
+.nav-title-text{
+  display:flex;
+  flex-direction:column;
+}
 
-      <p class="hero-subtitle">
-        Céline Szecel — Cherain (Gouvy) & visio
-      </p>
+.nav-main-title{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.8rem;
+  color:var(--gold);
+  white-space:nowrap;
+}
 
-      <div class="hero-actions">
-        <a href="#" class="btn btn-primary">Découvrir le parcours</a>
-        <a href="#" class="btn btn-secondary">Commencer</a>
-      </div>
-    </div>
+.nav-subtitle{
+  font-size:.75rem;
+  letter-spacing:.15em;
+  color:#ddd;
+  white-space:nowrap;
+}
 
-    <div class="hero-figure">
-      <img src="images/CoachingReiki.jpg" class="hero-image" alt="Céline">
-    </div>
-  </div>
-</header>
+/* Menu */
+.nav-menu{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
 
-</body>
-</html>
+.nav-menu a{
+  color:#eee;
+  text-decoration:none;
+  font-size:.85rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+
+.nav-menu a:hover{
+  color:var(--gold);
+}
+
+.nav-cta{
+  padding:8px 15px;
+  border:1px solid var(--gold);
+  border-radius:30px;
+  color:var(--gold);
+}
+
+.nav-cta:hover{
+  background:var(--gold);
+  color:#111;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  padding-top:140px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{
+  max-width:1200px;
+  margin:auto;
+  padding:0 30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.hero-title{
+  font-family:'Cormorant Garamond', serif;
+  font-size:2.8rem;
+  font-style:italic;
+  margin-bottom:20px;
+}
+
+.hero-subtitle{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:15px;
+}
+
+.btn{
+  padding:12px 20px;
+  border-radius:30px;
+  text-decoration:none;
+  font-size:.9rem;
+}
+
+.btn-primary{
+  background:#111;
+  color:var(--gold);
+}
+
+.btn-secondary{
+  border:1px solid #111;
+  color:#111;
+}
+
+.hero-image{
+  width:100%;
+  border-radius:12px;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero-content{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .nav-menu{
+    display:none;
+  }
+}
