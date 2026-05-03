@@ -134,3 +134,66 @@ section {
     width: 220px;
   }
 }
+/* ===== Photos intégrées ===== */
+
+.parcours-layout,
+.vision-layout,
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.contact-layout {
+  grid-template-columns: 0.55fr 1fr;
+}
+
+.section-photo {
+  display: flex;
+  justify-content: center;
+}
+
+.section-photo img,
+.hero-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
+.section-photo-small img {
+  max-width: 260px;
+}
+
+.hero-image {
+  max-width: 360px;
+}
+
+.vision-content {
+  max-width: 720px;
+}
+
+.contact-content {
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .parcours-layout,
+  .vision-layout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .contact-content {
+    text-align: center;
+  }
+
+  .section-photo img,
+  .hero-image {
+    max-width: 280px;
+  }
+}
