@@ -1,357 +1,869 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Selene — Accompagnement en 8 séances sur 2 à 3 mois (1000€ TTC) pour retrouver clarté, équilibre et autonomie. Céline Szecel — Cherain (Gouvy) & visio." />
-  <title>Selene — Accompagnement | Céline Szecel</title>
+:root{
+  --paper:#f5f3ef;
+  --paper-2:#efece6;
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  --ink:#111111;
+  --ink-2:#1a1a1a;
 
-<body>
-  <!-- NAV -->
-  <nav class="navbar" id="top">
-    <div class="nav-container">
+  --card:#ffffff;
+  --card-2:#fbfaf7;
 
-      <a class="nav-logo-block" href="#accueil" aria-label="Aller à l'accueil">
-        <img src="images/LogoSelene.png" alt="Logo Selene" class="nav-logo-img" />
-        <div class="nav-title-text">
-          <div class="nav-main-title">Coaching &amp; Reiki</div>
-          <div class="nav-subtitle">ÉQUILIBRE · CLARTÉ · AUTONOMIE</div>
-        </div>
-      </a>
+  --gold:#b89b5e;
+  --gold-2:#d8c07a;
 
-      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
-      </button>
+  --muted:#5f5f5f;
+  --muted-2:#7a7a7a;
 
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#parcours">Parcours</a></li>
-        <li><a href="#pour-qui">Pour qui ?</a></li>
-        <li><a href="#deroulement">Déroulement</a></li>
-        <li><a href="#offres">Offres</a></li>
-        <li><a href="#vision">Ma vision</a></li>
-        <li><a href="#formations">Formations</a></li>
-        <li><a href="#contact" class="nav-cta">Prendre rendez-vous</a></li>
-      </ul>
+  --line:rgba(17,17,17,.12);
+  --line-gold:rgba(184,155,94,.30);
 
-    </div>
-  </nav>
+  --font-heading:'Cormorant Garamond', Georgia, serif;
+  --font-body:'Raleway','Helvetica Neue',sans-serif;
 
-  <!-- HERO -->
-  <header id="accueil" class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title">Un accompagnement structuré pour retrouver clarté, équilibre et autonomie.</h1>
+  --radius:14px;
+  --transition: all 220ms ease;
+}
 
-        <p class="hero-subtitle">
-          Céline Szecel — Coaching &amp; Reiki (outils intégrés au parcours)<br />
-          <span class="hero-loc">Cherain (Gouvy) &amp; visio</span>
-        </p>
+*,
+*::before,
+*::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-        <div class="hero-actions">
-          <a href="#parcours" class="btn btn-primary">Découvrir le parcours</a>
-          <a href="#contact" class="btn btn-secondary">Commencer par une séance découverte</a>
-        </div>
-      </div>
+html{
+  scroll-behavior:smooth;
+}
 
-      <div class="hero-figure">
-        <img src="images/hero.jpg" alt="Céline Szecel — Selene" class="hero-image" />
-      </div>
-    </div>
+body{
+  font-family:var(--font-body);
+  font-weight:300;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  overflow-x:hidden;
+}
 
-    <a href="#parcours" class="scroll-indicator" aria-label="Aller au contenu">
-      <span></span>
-    </a>
-  </header>
+body.menu-open{
+  overflow:hidden;
+}
 
-  <!-- PARCOURS -->
-  <section id="parcours" class="section">
-    <div class="container">
-      <h2 class="section-title">Le Parcours Selene</h2>
+img{
+  max-width:100%;
+  display:block;
+}
 
-      <p class="lead">
-        Un parcours en <strong>8 séances</strong>, sur <strong>2 à 3 mois</strong>, pour traverser une période de surcharge,
-        de transition ou de flou — et retrouver un cap, une stabilité, une énergie plus juste.
-      </p>
+section,
+header{
+  scroll-margin-top:120px;
+}
 
-      <div class="parcours-content">
-        <div class="section-photo section-photo-small">
-          <img src="images/CoachingReiki.jpg" alt="Coaching et Reiki — Selene" />
-        </div>
+.container{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px;
+}
 
-        <div class="highlight-grid parcours-highlights">
-          <div class="highlight-item"><p><span class="highlight-icon">&#10022;</span><strong>Structuré</strong> : un cadre clair, des étapes, un fil conducteur.</p></div>
-          <div class="highlight-item"><p><span class="highlight-icon">&#10022;</span><strong>Personnalisé</strong> : on adapte le rythme et le contenu à ta réalité.</p></div>
-          <div class="highlight-item"><p><span class="highlight-icon">&#10022;</span><strong>Intégratif</strong> : coaching + Reiki (si pertinent) + outils d’ancrage.</p></div>
-          <div class="highlight-item"><p><span class="highlight-icon">&#10022;</span><strong>Autonomie</strong> : l’objectif est que tu repartes avec des repères durables.</p></div>
-        </div>
-      </div>
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-heading);
+  font-weight:500;
+  line-height:1.25;
+}
 
-      <div class="cta-band">
-        <p class="cta-band-text">Tu peux commencer par une séance découverte, puis décider sereinement du parcours.</p>
-        <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
-      </div>
-    </div>
-  </section>
+p{
+  margin-bottom:1rem;
+}
 
-  <!-- POUR QUI -->
-  <section id="pour-qui" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Pour qui ?</h2>
+/* NAVBAR */
 
-      <ul class="pour-qui-list">
-        <li>Tu te sens en <strong>surcharge</strong> (mental, émotions, responsabilités) ?</li>
-        <li>Tu traverses une <strong>transition</strong> (séparation, deuil, burn-out, changement de vie) ?</li>
-        <li>Tu as “tout pour aller bien” mais tu sens un <strong>décalage intérieur</strong> ?</li>
-        <li>Tu veux <strong>te retrouver</strong>, te repositionner, clarifier une direction ?</li>
-        <li>Tu veux sortir des pensées négatives, retrouver une <strong>stabilité</strong> ?</li>
-      </ul>
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  padding:14px 0;
+  background:rgba(17,17,17,.96);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  transition:var(--transition);
+}
 
-      <div class="pour-qui-description">
-        <p>
-          Ici, on ne “fait pas une séance et basta”. On construit un chemin.
-          Avec douceur, mais aussi avec une structure : compréhension, décisions, actions, et retour à l’autonomie.
-        </p>
-      </div>
+.navbar.scrolled{
+  padding:10px 0;
+  background:rgba(17,17,17,.98);
+}
 
-      <div class="pour-qui-intro">
-        <p>Je suis là pour toi — avec respect et clarté. Céline</p>
-      </div>
-    </div>
-  </section>
+/* Modifié pour donner plus de place au menu */
+.nav-container{
+  width:100%;
+  max-width:1240px;
+  margin:0 auto;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:26px;
+}
 
-  <!-- DEROULEMENT -->
-  <section id="deroulement" class="section">
-    <div class="container">
-      <h2 class="section-title">Comment se déroule le parcours ?</h2>
+.nav-logo-block{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:0;
+  text-decoration:none;
+  flex:0 0 auto;
+  max-width:360px;
+}
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-year">1</span>
-          <div class="timeline-content">
-            <h3>Clarifier &amp; poser le cadre</h3>
-            <p>On fait le point : situation, besoins, objectifs, rythme, priorités.</p>
-          </div>
-        </div>
+.nav-logo-img{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
 
-        <div class="timeline-item">
-          <span class="timeline-year">2–6</span>
-          <div class="timeline-content">
-            <h3>Avancer pas à pas</h3>
-            <p>Coaching + outils d’ancrage. Reiki intégré si cela soutient ton équilibre et ton apaisement.</p>
-          </div>
-        </div>
+.nav-title-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+  min-width:0;
+}
 
-        <div class="timeline-item">
-          <span class="timeline-year">7</span>
-          <div class="timeline-content">
-            <h3>Consolider</h3>
-            <p>On stabilise : nouveaux repères, décisions alignées, habitudes soutenantes.</p>
-          </div>
-        </div>
+.nav-main-title,
+.nav-subtitle{
+  white-space:nowrap;
+}
 
-        <div class="timeline-item">
-          <span class="timeline-year">8</span>
-          <div class="timeline-content">
-            <h3>Bilan &amp; autonomie</h3>
-            <p>On mesure le chemin, on renforce ce qui tient dans la durée, et tu repars avec un cap.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+.nav-main-title{
+  font-family:var(--font-heading);
+  font-style:italic;
+  font-size:1.75rem;
+  color:var(--gold-2);
+  letter-spacing:.02em;
+  text-shadow:0 0 10px rgba(216,192,122,.16);
+}
 
-  <!-- OFFRES -->
-  <section id="offres" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Offres</h2>
+.nav-subtitle{
+  margin-top:4px;
+  font-size:.72rem;
+  letter-spacing:.16em;
+  color:rgba(255,255,255,.74);
+}
 
-      <div class="methods-grid">
-        <div class="method-card">
-          <h3>Parcours Selene</h3>
-          <p class="method-subtitle">L’offre centrale</p>
-          <p><strong>8 séances</strong> sur <strong>2 à 3 mois</strong>. Un cadre clair, personnalisé, orienté autonomie.</p>
+/* Modifié : le menu est déplacé vers la gauche et moins espacé */
+.nav-menu{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-left:0;
+  flex-wrap:nowrap;
+  min-width:0;
+}
 
-          <div class="price-box">
-            <p class="price-label">Investissement</p>
-            <p class="price"><strong>1000€ TTC</strong></p>
-            <p class="price-note">Paiement possible en 2 fois.</p>
-          </div>
+.nav-menu a{
+  white-space:nowrap;
+  color:rgba(255,255,255,.88);
+  text-decoration:none;
+  font-size:.78rem;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  padding:8px 5px;
+  border-radius:8px;
+  transition:var(--transition);
+}
 
-          <a href="#contact" class="btn btn-primary">Commencer</a>
-        </div>
+.nav-menu a:hover{
+  color:#fff;
+  background:rgba(255,255,255,.06);
+}
 
-        <div class="method-card">
-          <h3>Séance découverte</h3>
-          <p class="method-subtitle">La porte d’entrée</p>
-          <p>Un premier temps pour faire le point, clarifier ta situation et vérifier si le parcours est pertinent.</p>
-          <p class="small-muted">Tarif : à définir.</p>
-          <a href="#contact" class="btn btn-secondary">Me contacter</a>
-        </div>
+.nav-menu a.nav-cta{
+  border:1px solid rgba(184,155,94,.55);
+  color:var(--gold-2);
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(184,155,94,.12);
+}
 
-        <div class="method-card">
-          <h3>Séances ponctuelles</h3>
-          <p class="method-subtitle">Soutien ciblé</p>
-          <p>Coaching ou Reiki selon besoin, en dehors du parcours, quand une séance suffit.</p>
-          <p class="small-muted">Tarifs : à définir (ou sur demande).</p>
-          <a href="#contact" class="btn btn-secondary">Me contacter</a>
-        </div>
-      </div>
-    </div>
-  </section>
+.nav-menu a.nav-cta:hover{
+  background:rgba(184,155,94,.20);
+  color:#fff;
+}
 
-  <!-- VISION -->
-  <section id="vision" class="section">
-    <div class="container">
-      <h2 class="section-title">Ma vision</h2>
+/* BURGER */
 
-      <div class="vision-layout">
-        <div class="vision-content">
-          <p>
-            Je crois aux accompagnements qui respectent le rythme de chacun, tout en donnant un cadre solide.
-            Mon objectif n’est pas de créer une dépendance, mais de t’aider à retrouver des repères et une autonomie durable.
-          </p>
-          <p>
-            Le Reiki est un outil de régulation et d’apaisement quand c’est pertinent.
-            Le coaching t’aide à clarifier, décider et avancer. Ensemble, ça fait un parcours complet — ancré et concret.
-          </p>
-        </div>
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:1px solid rgba(184,155,94,.45);
+  border-radius:12px;
+  cursor:pointer;
+  padding:10px;
+  margin-left:auto;
+}
 
-        <div class="section-photo vision-photo">
-          <img src="images/apropos.jpg" alt="Céline Szecel — Ma vision" />
-        </div>
-      </div>
-    </div>
-  </section>
+.nav-toggle span{
+  width:22px;
+  height:2px;
+  background-color:var(--gold);
+  transition:var(--transition);
+}
 
-  <!-- FORMATIONS -->
-  <section id="formations" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Mes formations</h2>
+.nav-toggle.active span:nth-child(1){
+  transform:rotate(45deg) translate(5px, 5px);
+}
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-year">2019</span>
-          <div class="timeline-content">
-            <h3>Usui Reiki : I<sup>er</sup> degré</h3>
-            <p>@Marijke Bisselink</p>
-          </div>
-        </div>
+.nav-toggle.active span:nth-child(2){
+  opacity:0;
+}
 
-        <div class="timeline-item">
-          <span class="timeline-year">2021</span>
-          <div class="timeline-content">
-            <h3>Usui Reiki : II<sup>e</sup> degré</h3>
-            <p>@Marijke Bisselink</p>
-          </div>
-        </div>
+.nav-toggle.active span:nth-child(3){
+  transform:rotate(-45deg) translate(5px, -5px);
+}
 
-        <div class="timeline-item">
-          <span class="timeline-year">2022</span>
-          <div class="timeline-content">
-            <h3>Formation au coaching : Module 1</h3>
-            <p>@Une touche de joie - Laurence Cordonnier</p>
-          </div>
-        </div>
+/* HERO */
 
-        <div class="timeline-item">
-          <span class="timeline-year">2025</span>
-          <div class="timeline-content">
-            <h3>Usui Reiki : Maître praticien</h3>
-            <p>@Marijke Bisselink</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:140px 0 60px;
+  background:var(--paper);
+  position:relative;
+}
 
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2 class="section-title">Contact</h2>
+.hero-content{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:48px;
+  align-items:center;
+}
 
-      <div class="contact-layout">
-        <div class="section-photo contact-photo">
-          <img src="images/contact.jpg" alt="Céline Szecel — Contact" />
-        </div>
+.hero-title{
+  font-size:2.75rem;
+  font-style:italic;
+  margin-bottom:16px;
+}
 
-        <div class="contact-content">
-          <p class="contact-intro">Envie de commencer ?</p>
-          <p class="contact-text">
-            Écris-moi pour une séance découverte, ou pour vérifier si le Parcours Selene correspond à ta situation.
-          </p>
+.hero-subtitle{
+  color:var(--muted);
+  font-size:1.05rem;
+  margin-bottom:22px;
+}
 
-          <div class="contact-info">
-            <a href="mailto:contact@selene-coaching.com" class="contact-link">
-              <svg viewBox="0 0 24 24" width="24" height="24" stroke="#b89b5e" stroke-width="1.5" fill="none" aria-hidden="true">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="M2,4 L12,13 L22,4"></path>
-              </svg>
-              <span>contact@selene-coaching.com</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+.hero-loc{
+  color:var(--muted-2);
+}
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-logo">
-        <span class="logo-text">Selene</span>
-      </div>
-      <p class="footer-tagline">Accompagnement — Coaching &amp; Reiki</p>
-      <p class="footer-copyright">&copy; 2025 Selene — Céline Szecel. Tous droits réservés.</p>
-    </div>
-  </footer>
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
 
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const body = document.body;
+.hero-figure{
+  display:flex;
+  justify-content:center;
+}
 
-    function closeMenu(){
-      navMenu.classList.remove('active');
-      navToggle.classList.remove('active');
-      navToggle.setAttribute('aria-expanded', 'false');
-      body.classList.remove('menu-open');
-    }
+.hero-image{
+  width:100%;
+  max-width:360px;
+  max-height:460px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  object-fit:cover;
+  object-position:center;
+}
 
-    navToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active', isOpen);
-      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      body.classList.toggle('menu-open', isOpen);
-    });
+/* SCROLL INDICATOR */
 
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => closeMenu());
-    });
+.scroll-indicator{
+  position:absolute;
+  bottom:22px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:.6;
+}
 
-    document.addEventListener('click', (e) => {
-      if (!navMenu.classList.contains('active')) return;
-      const clickedInside = navMenu.contains(e.target) || navToggle.contains(e.target);
-      if (!clickedInside) closeMenu();
-    });
+.scroll-indicator span{
+  display:block;
+  width:18px;
+  height:18px;
+  border-right:2px solid var(--gold);
+  border-bottom:2px solid var(--gold);
+  transform:rotate(45deg);
+}
 
-    window.addEventListener('scroll', () => {
-      const navbar = document.querySelector('.navbar');
-      if (window.scrollY > 50) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    });
+/* BUTTONS */
 
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, observerOptions);
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 16px;
+  border-radius:999px;
+  font-size:.92rem;
+  letter-spacing:.04em;
+  text-decoration:none;
+  transition:var(--transition);
+  border:1px solid transparent;
+  white-space:nowrap;
+}
 
-    document.querySelectorAll('.method-card, .timeline-item').forEach(el => observer.observe(el));
-  </script>
-</body>
-</html>
+.btn-primary{
+  background:var(--ink);
+  color:var(--gold-2);
+  border-color:rgba(17,17,17,.9);
+}
+
+.btn-primary:hover{
+  background:var(--ink-2);
+  color:#fff;
+}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+
+.btn-secondary:hover{
+  border-color:var(--line-gold);
+  color:var(--gold);
+}
+
+/* SECTIONS */
+
+.section{
+  padding:80px 0;
+  background:var(--paper);
+}
+
+.section-alt{
+  background:var(--paper-2);
+}
+
+.section-title{
+  font-size:2.2rem;
+  text-align:center;
+  margin-bottom:34px;
+}
+
+.section-title::after{
+  content:'';
+  display:block;
+  width:56px;
+  height:1px;
+  background:var(--gold);
+  margin:14px auto 0;
+}
+
+.lead{
+  max-width:880px;
+  margin:0 auto 26px;
+  text-align:center;
+  color:var(--muted);
+  font-size:1.08rem;
+}
+
+/* PARCOURS */
+
+.parcours-content{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:2rem;
+  align-items:center;
+  margin-top:2rem;
+}
+
+.section-photo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.section-photo img{
+  width:100%;
+  max-width:300px;
+  max-height:380px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  object-fit:cover;
+  object-position:center;
+}
+
+.section-photo-small img{
+  width:100%;
+  max-width:200px;
+  max-height:200px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+}
+
+.parcours-highlights{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:0;
+}
+
+.highlight-grid{
+  display:grid;
+}
+
+.highlight-item{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:14px 16px;
+}
+
+.highlight-item p{
+  margin:0;
+  color:var(--muted);
+}
+
+.highlight-icon{
+  color:var(--gold);
+  margin-right:8px;
+}
+
+/* CTA BAND */
+
+.cta-band{
+  margin-top:26px;
+  border:1px solid var(--line-gold);
+  background:rgba(184,155,94,.06);
+  border-radius:var(--radius);
+  padding:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.cta-band-text{
+  margin:0;
+  color:var(--muted);
+}
+
+/* POUR QUI */
+
+.pour-qui-list{
+  max-width:780px;
+  margin:0 auto 18px;
+  list-style:none;
+}
+
+.pour-qui-list li{
+  padding:14px 0 14px 26px;
+  position:relative;
+  border-bottom:1px solid var(--line);
+}
+
+.pour-qui-list li::before{
+  content:'✦';
+  position:absolute;
+  left:0;
+  top:14px;
+  color:var(--gold);
+  font-size:.75rem;
+}
+
+.pour-qui-description{
+  max-width:880px;
+  margin:18px auto 0;
+  text-align:center;
+  font-size:1.05rem;
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.pour-qui-intro{
+  text-align:center;
+  font-size:1.2rem;
+  color:var(--ink);
+  margin-top:18px;
+  font-family:var(--font-heading);
+  font-style:italic;
+}
+
+/* OFFRES */
+
+.methods-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:18px;
+  margin-top:18px;
+}
+
+.method-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  text-align:left;
+  transition:var(--transition);
+  opacity:0;
+  transform:translateY(16px);
+}
+
+.method-card.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.method-card:hover{
+  border-color:rgba(184,155,94,.45);
+  background:var(--card-2);
+}
+
+.method-card h3{
+  font-size:1.45rem;
+  margin-bottom:6px;
+}
+
+.method-subtitle{
+  font-size:.92rem;
+  color:var(--muted-2);
+  font-style:italic;
+  margin-bottom:12px !important;
+}
+
+.small-muted{
+  color:var(--muted-2);
+  font-size:.92rem;
+}
+
+/* PRICE BOX */
+
+.price-box{
+  margin:14px 0 16px;
+  padding:14px;
+  border-radius:var(--radius);
+  border:1px solid var(--line-gold);
+  background:rgba(184,155,94,.06);
+}
+
+.price-label{
+  margin:0 0 6px;
+  color:var(--muted-2);
+  font-size:.9rem;
+}
+
+.price{
+  margin:0;
+  font-size:1.2rem;
+}
+
+.price-note{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:.92rem;
+}
+
+/* TIMELINE */
+
+.timeline{
+  max-width:780px;
+  margin:0 auto;
+  position:relative;
+}
+
+.timeline::before{
+  content:'';
+  position:absolute;
+  left:74px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:rgba(184,155,94,.55);
+  opacity:.7;
+}
+
+.timeline-item{
+  display:flex;
+  gap:22px;
+  margin-bottom:18px;
+  opacity:0;
+  transform:translateX(-14px);
+}
+
+.timeline-item.visible{
+  opacity:1;
+  transform:translateX(0);
+}
+
+.timeline-year{
+  flex-shrink:0;
+  width:56px;
+  font-family:var(--font-heading);
+  font-size:1.1rem;
+  color:var(--gold);
+  text-align:right;
+}
+
+.timeline-content{
+  position:relative;
+  padding-left:20px;
+}
+
+.timeline-content::before{
+  content:'';
+  position:absolute;
+  left:-7px;
+  top:10px;
+  width:10px;
+  height:10px;
+  background:var(--paper-2);
+  border:1px solid var(--gold);
+  border-radius:50%;
+}
+
+.timeline-content h3{
+  font-size:1.1rem;
+  margin-bottom:4px;
+}
+
+.timeline-content p{
+  color:var(--muted);
+  font-size:.95rem;
+  margin-bottom:0;
+}
+
+/* VISION */
+
+.vision-layout{
+  display:grid;
+  grid-template-columns:1fr 260px;
+  gap:2rem;
+  align-items:center;
+}
+
+.vision-content{
+  max-width:680px;
+  color:var(--muted);
+  font-size:1.05rem;
+  line-height:1.9;
+}
+
+.vision-photo{
+  display:flex;
+  justify-content:flex-end;
+}
+
+.vision-photo img{
+  width:100%;
+  max-width:240px;
+  max-height:320px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  object-fit:cover;
+  object-position:center;
+}
+
+/* CONTACT */
+
+.contact-layout{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:2rem;
+  align-items:center;
+}
+
+.contact-photo{
+  display:flex;
+  justify-content:flex-start;
+}
+
+.contact-photo img{
+  width:100%;
+  max-width:240px;
+  max-height:320px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  object-fit:cover;
+  object-position:center;
+}
+
+.contact-content{
+  max-width:640px;
+  text-align:left;
+}
+
+.contact-intro{
+  font-family:var(--font-heading);
+  font-size:1.45rem;
+  font-style:italic;
+  margin-bottom:10px;
+}
+
+.contact-text{
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+.contact-info{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.contact-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  color:var(--ink);
+  text-decoration:none;
+}
+
+.contact-link:hover{
+  border-color:rgba(184,155,94,.60);
+  background:var(--card-2);
+}
+
+/* FOOTER */
+
+.footer{
+  padding:46px 0;
+  text-align:center;
+  border-top:1px solid var(--line);
+  background:var(--paper);
+}
+
+.footer-logo .logo-text{
+  font-family:var(--font-heading);
+  font-size:2rem;
+  font-style:italic;
+}
+
+.footer-tagline{
+  font-family:var(--font-heading);
+  font-style:italic;
+  color:var(--muted-2);
+  margin-bottom:10px;
+}
+
+.footer-copyright{
+  font-size:.9rem;
+  color:var(--muted-2);
+  margin-bottom:0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:1180px){
+  .nav-toggle{
+    display:flex;
+  }
+
+  .nav-menu{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:min(78%, 360px);
+    height:100vh;
+    background:rgba(17,17,17,.98);
+    border-left:1px solid rgba(255,255,255,.10);
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    transition:var(--transition);
+    padding:24px;
+  }
+
+  .nav-menu.active{
+    right:0;
+  }
+}
+
+@media (max-width:900px){
+  .hero-content,
+  .parcours-content,
+  .vision-layout,
+  .contact-layout{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:2rem;
+  }
+
+  .hero-actions{
+    justify-content:center;
+  }
+
+  .section-photo,
+  .vision-photo,
+  .contact-photo{
+    justify-content:center;
+  }
+
+  .vision-content,
+  .contact-content{
+    text-align:center;
+    margin:0 auto;
+  }
+
+  .contact-info{
+    align-items:center;
+  }
+
+  .section-photo img,
+  .hero-image{
+    max-width:280px;
+    max-height:360px;
+  }
+
+  .section-photo-small img{
+    max-width:190px;
+    max-height:190px;
+  }
+
+  .parcours-highlights{
+    text-align:left;
+  }
+}
+
+@media (max-width:480px){
+  .container,
+  .nav-container{
+    padding:0 16px;
+  }
+
+  .nav-logo-img{
+    width:54px;
+    height:54px;
+  }
+
+  .nav-main-title{
+    font-size:1.55rem;
+  }
+
+  .nav-subtitle{
+    font-size:.70rem;
+    letter-spacing:.12em;
+  }
+
+  .hero-title{
+    font-size:1.75rem;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
