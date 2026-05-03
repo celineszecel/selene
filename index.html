@@ -18,7 +18,7 @@
     <div class="nav-container">
 
       <a class="nav-logo-block" href="#accueil" aria-label="Aller à l'accueil">
-        <img src="images/IMG_2792.jpg" alt="Logo Selene" class="nav-logo-img" />
+        <img src="images/LogoSelene.png" alt="Logo Selene" class="nav-logo-img" />
         <div class="nav-title-text">
           <div class="nav-main-title">Coaching &amp; Reiki</div>
           <div class="nav-subtitle">ÉQUILIBRE · CLARTÉ · AUTONOMIE</div>
@@ -312,26 +312,22 @@
       body.classList.toggle('menu-open', isOpen);
     });
 
-    // Fermer le menu quand on clique un lien
     document.querySelectorAll('.nav-menu a').forEach(link => {
       link.addEventListener('click', () => closeMenu());
     });
 
-    // Fermer au clic en dehors (mobile)
     document.addEventListener('click', (e) => {
       if (!navMenu.classList.contains('active')) return;
       const clickedInside = navMenu.contains(e.target) || navToggle.contains(e.target);
       if (!clickedInside) closeMenu();
     });
 
-    // Navbar "scrolled"
     window.addEventListener('scroll', () => {
       const navbar = document.querySelector('.navbar');
       if (window.scrollY > 50) navbar.classList.add('scrolled');
       else navbar.classList.remove('scrolled');
     });
 
-    // Animations visibles
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
