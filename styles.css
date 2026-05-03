@@ -311,3 +311,51 @@ img{
   }
 
 }
+/* ===== Correction définitive : images non déformées ===== */
+
+.hero-image,
+.section-photo img,
+.section-photo-small img,
+.vision-photo img,
+.contact-photo img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  object-fit: contain !important;
+  aspect-ratio: auto !important;
+}
+
+/* Photo hero : bras croisés */
+.hero-image {
+  max-width: 320px !important;
+}
+
+/* Image CoachingReiki */
+.section-photo-small img {
+  max-width: 200px !important;
+  max-height: none !important;
+  background: #fff;
+}
+
+/* Photos Ma vision + Contact */
+.vision-photo img,
+.contact-photo img {
+  max-width: 220px !important;
+  max-height: none !important;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .hero-image {
+    max-width: 260px !important;
+  }
+
+  .section-photo-small img {
+    max-width: 180px !important;
+  }
+
+  .vision-photo img,
+  .contact-photo img {
+    max-width: 200px !important;
+  }
+}
