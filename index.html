@@ -1,378 +1,126 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Selene - Coaching & Reiki par Céline Szecel. Accompagnement pour surmonter vos blocages, soins énergétiques et méditation.">
-    <title>Selene - Coaching & Reiki | Céline Szecel</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selene — Céline Szecel</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Raleway&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">Selene</a>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#pour-qui">Pour qui ?</a></li>
-                <li><a href="#methodes">Méthodes</a></li>
-                <li><a href="#resultats">Résultats</a></li>
-                <li><a href="#formations">Formations</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <header id="accueil" class="hero">
-        <div class="hero-content">
-            <div class="decorative-branch left"></div>
-            <p class="hero-welcome">Bienvenue</p>
-            <div class="logo-circle">
-                <div class="moon-arc"></div>
-                <div class="star">
-                    <svg viewBox="0 0 100 100" width="40" height="40">
-                        <polygon points="50,0 54,40 100,50 54,60 50,100 46,60 0,50 46,40" fill="url(#starGradient)"/>
-                        <defs>
-                            <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#fff"/>
-                                <stop offset="50%" style="stop-color:#d4af37"/>
-                                <stop offset="100%" style="stop-color:#fff"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <span class="logo-text">Selene</span>
-            </div>
-            <h1 class="hero-title">Coaching & Reiki</h1>
-            <div class="hero-figure">
-                <svg class="meditation-figure" viewBox="0 0 200 250" width="200" height="250">
-                    <!-- Decorative leaves -->
-                    <g class="leaves" stroke="#d4af37" stroke-width="1" fill="none">
-                        <path d="M30,180 Q20,150 40,120 Q30,150 30,180"/>
-                        <path d="M25,185 Q10,160 25,130 Q20,160 25,185"/>
-                        <path d="M35,175 Q30,145 50,110 Q35,145 35,175"/>
-                        <path d="M170,180 Q180,150 160,120 Q170,150 170,180"/>
-                        <path d="M175,185 Q190,160 175,130 Q180,160 175,185"/>
-                        <path d="M165,175 Q170,145 150,110 Q165,145 165,175"/>
-                    </g>
-                    <!-- Upper decorative element -->
-                    <g class="upper-leaves" stroke="#d4af37" stroke-width="1" fill="none">
-                        <path d="M90,50 Q85,30 100,15 Q95,35 90,50"/>
-                        <path d="M110,50 Q115,30 100,15 Q105,35 110,50"/>
-                        <path d="M95,55 Q90,40 100,25 Q95,45 95,55"/>
-                        <path d="M105,55 Q110,40 100,25 Q105,45 105,55"/>
-                    </g>
-                    <!-- Meditating figure -->
-                    <g class="figure" stroke="#fff" stroke-width="1.5" fill="none">
-                        <!-- Head -->
-                        <ellipse cx="100" cy="90" rx="18" ry="22"/>
-                        <!-- Hair lines -->
-                        <path d="M85,75 Q80,85 82,100"/>
-                        <path d="M115,75 Q120,85 118,100"/>
-                        <!-- Face details -->
-                        <path d="M92,88 Q95,86 98,88" stroke-width="1"/>
-                        <path d="M102,88 Q105,86 108,88" stroke-width="1"/>
-                        <path d="M97,98 Q100,100 103,98" stroke-width="1"/>
-                        <!-- Body -->
-                        <path d="M100,112 L100,160"/>
-                        <!-- Arms raised -->
-                        <path d="M100,125 Q70,100 75,60"/>
-                        <path d="M100,125 Q130,100 125,60"/>
-                        <!-- Hands together -->
-                        <path d="M75,60 Q85,45 100,40 Q115,45 125,60"/>
-                        <!-- Legs crossed -->
-                        <path d="M100,160 Q70,170 50,180 Q80,175 100,180"/>
-                        <path d="M100,160 Q130,170 150,180 Q120,175 100,180"/>
-                    </g>
-                    <!-- Moon pendant -->
-                    <circle cx="100" cy="140" r="8" stroke="#d4af37" stroke-width="1" fill="none"/>
-                    <path d="M96,140 Q100,135 104,140 Q100,138 96,140" stroke="#d4af37" stroke-width="1" fill="none"/>
-                </svg>
-            </div>
-            <p class="hero-name">Céline Szecel</p>
-            <div class="decorative-branch right"></div>
-        </div>
-        <a href="#pour-qui" class="scroll-indicator">
-            <span></span>
-        </a>
-    </header>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
 
-    <section id="pour-qui" class="section">
-        <div class="container">
-            <h2 class="section-title">Pour qui ?</h2>
-            <div class="pour-qui-intro">
-                <p>Je suis là pour toi.</p>
-            </div>
-            <ul class="pour-qui-list">
-                <li>Tu te sens stressé(e) ?</li>
-                <li>Tu veux te reconstruire après une épreuve de vie (divorce, décès d'un être cher, burn-out, etc.) ?</li>
-                <li>Tu as tout pour être heureux, mais tu ne te sens pas bien ?</li>
-                <li>Tu veux (re)découvrir qui tu es ?</li>
-                <li>Tu veux (re)définir ta mission de vie ?</li>
-                <li>Tu as des pensées négatives ?</li>
-                <li>Tu veux avoir confiance en toi ?</li>
-                <li>Tu veux reprendre goût à la vie ?</li>
-            </ul>
-            <div class="pour-qui-description">
-                <p>Grâce au coaching, je t'aide à surmonter tes blocages inconscients et à être en accord avec toi-même. Je peux aussi te proposer des soins énergétiques pour améliorer ton bien-être et favoriser ta guérison. Les conseils de méditation te permettront de vivre avec moins de stress, dans l'instant présent.</p>
-            </div>
-        </div>
-    </section>
+    <div class="nav-brand">
+      <img src="images/LogoSelene.png" alt="Logo Selene" class="nav-logo-img">
+      <div class="nav-text">
+        <span class="nav-title">Coaching & Reiki</span>
+        <span class="nav-subtitle">ÉQUILIBRE · CLARTÉ · AUTONOMIE</span>
+      </div>
+    </div>
 
-    <section id="methodes" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Méthodes</h2>
-            <div class="methods-grid">
-                <div class="method-card">
-                    <div class="method-icon">
-                        <svg viewBox="0 0 60 60" width="60" height="60">
-                            <circle cx="30" cy="20" r="10" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                            <path d="M20,35 Q30,45 40,35" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                            <path d="M15,50 L30,40 L45,50" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Coaching</h3>
-                    <p class="method-subtitle">Coaching classique</p>
-                    <p>Surmonter des blocages inconscients.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">
-                        <svg viewBox="0 0 60 60" width="60" height="60">
-                            <circle cx="30" cy="30" r="20" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                            <path d="M30,15 L30,10" stroke="#d4af37" stroke-width="1.5"/>
-                            <path d="M30,50 L30,45" stroke="#d4af37" stroke-width="1.5"/>
-                            <path d="M15,30 L10,30" stroke="#d4af37" stroke-width="1.5"/>
-                            <path d="M50,30 L45,30" stroke="#d4af37" stroke-width="1.5"/>
-                            <circle cx="30" cy="30" r="5" stroke="#d4af37" stroke-width="1" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Reiki</h3>
-                    <p class="method-subtitle">Soins énergétiques</p>
-                    <p>Pour améliorer le bien-être et favoriser la guérison.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">
-                        <svg viewBox="0 0 60 60" width="60" height="60">
-                            <ellipse cx="30" cy="45" rx="20" ry="5" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                            <path d="M20,45 Q20,30 30,25 Q40,30 40,45" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                            <circle cx="30" cy="18" r="8" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Méditation</h3>
-                    <p class="method-subtitle">Pleine conscience</p>
-                    <p>Pour moins de stress et pour vivre dans l'instant présent.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <ul class="nav-menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#pour-qui">Pour qui ?</a></li>
+      <li><a href="#deroulement">Déroulement</a></li>
+      <li><a href="#offres">Offres</a></li>
+      <li><a href="#vision">Ma vision</a></li>
+      <li><a href="#contact">Prendre rendez-vous</a></li>
+    </ul>
 
-    <section id="resultats" class="section">
-        <div class="container">
-            <h2 class="section-title">Tes résultats</h2>
-            <div class="results-grid">
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu te sens bien dans ta peau.</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu te sens plus serein(e).</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Ton mindset est positif.</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu es résilient(e).</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu es prêt(e) à te reconstruire après une épreuve de vie.</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu agis en conséquence.</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu as confiance en toi.</p>
-                </div>
-                <div class="result-item">
-                    <span class="result-icon">&#10022;</span>
-                    <p>Tu reprends goût à la vie.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  </div>
+</nav>
 
-    <section id="formations" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Mes formations</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="timeline-year">2019</span>
-                    <div class="timeline-content">
-                        <h3>Usui Reiki : I<sup>er</sup> degré</h3>
-                        <p>@Marijke Bisselink</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2021</span>
-                    <div class="timeline-content">
-                        <h3>Usui Reiki : II<sup>e</sup> degré</h3>
-                        <p>@Marijke Bisselink</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2022</span>
-                    <div class="timeline-content">
-                        <h3>Formation au coaching : Module 1</h3>
-                        <p>@Une touche de joie - Laurence Cordonnier</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2025</span>
-                    <div class="timeline-content">
-                        <h3>Usui Reiki : Maître praticien</h3>
-                        <p>@Marijke Bisselink</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<header id="accueil" class="hero">
+  <div class="container hero-content">
 
-    <section id="passions" class="section">
-        <div class="container">
-            <h2 class="section-title">Mes passions</h2>
-            <div class="passions-grid">
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Développement personnel</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Les animaux</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Musique des années '80</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Tim Burton</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Star Wars (ancienne trilogie)</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Meubles Louis XV</p>
-                </div>
-                <div class="passion-item">
-                    <span class="passion-icon">&#9829;</span>
-                    <p>Archéologie et Égyptologie</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-text">
+      <h1>Retrouver clarté, équilibre et autonomie</h1>
+      <p>Accompagnement personnalisé à Cherain (Gouvy) & en visio</p>
+    </div>
 
-    <section id="contact" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-content">
-                <p class="contact-intro">Prêt(e) à commencer ton voyage vers le bien-être ?</p>
-                <p class="contact-text">N'hésite pas à me contacter pour en savoir plus sur mes services ou pour prendre rendez-vous.</p>
-                <div class="contact-info">
-                    <a href="mailto:contact@selene-coaching.com" class="contact-link">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="#d4af37" stroke-width="1.5" fill="none">
-                            <rect x="2" y="4" width="20" height="16" rx="2"/>
-                            <path d="M2,4 L12,13 L22,4"/>
-                        </svg>
-                        <span>contact@selene-coaching.com</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-figure">
+      <img src="images/hero.jpg" class="hero-image">
+    </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <span class="logo-text">Selene</span>
-            </div>
-            <p class="footer-tagline">Coaching & Reiki</p>
-            <p class="footer-copyright">&copy; 2025 Selene - Céline Szecel. Tous droits réservés.</p>
-        </div>
-    </footer>
+  </div>
+</header>
 
-    <script>
-        // Mobile navigation toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
+<!-- PARCOURS -->
+<section id="parcours" class="section">
+  <div class="container">
+    <h2>Le Parcours Selene</h2>
+    <p>Un accompagnement structuré sur 2 à 3 mois.</p>
+  </div>
+</section>
 
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-        });
+<!-- POUR QUI -->
+<section id="pour-qui" class="section section-alt">
+  <div class="container">
+    <h2>Pour qui ?</h2>
+    <p>Pour les personnes en transition, surcharge ou perte de repères.</p>
+  </div>
+</section>
 
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
-            });
-        });
+<!-- DEROULEMENT -->
+<section id="deroulement" class="section">
+  <div class="container">
+    <h2>Déroulement</h2>
+    <p>Un accompagnement en plusieurs étapes.</p>
+  </div>
+</section>
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+<!-- OFFRES -->
+<section id="offres" class="section section-alt">
+  <div class="container">
+    <h2>Offres</h2>
+  </div>
+</section>
 
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+<!-- VISION -->
+<section id="vision" class="section">
+  <div class="container vision-grid">
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    <div class="vision-text">
+      <h2>Ma vision</h2>
+      <p>
+        Je crois aux accompagnements qui respectent le rythme de chacun,
+        tout en donnant un cadre solide.
+      </p>
+      <p>
+        Mon objectif est de t’aider à retrouver ton autonomie et avancer avec clarté.
+      </p>
+    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+    <div class="vision-image">
+      <img src="images/apropos.jpg" alt="Céline Szecel">
+    </div>
 
-        document.querySelectorAll('.method-card, .result-item, .timeline-item, .passion-item').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-alt">
+  <div class="container contact-grid">
+
+    <div class="contact-image">
+      <img src="images/contact.jpg" alt="Céline Szecel">
+    </div>
+
+    <div class="contact-content">
+      <h2>Contact</h2>
+      <p>Prendre rendez-vous ou poser une question :</p>
+      <a href="mailto:contact@selene-coaching.com">contact@selene-coaching.com</a>
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>
