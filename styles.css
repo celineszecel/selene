@@ -87,11 +87,11 @@ p{ margin-bottom:1rem; }
   padding:0 24px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  justify-content:center;
+  gap:24px;
 }
 
-/* IMPORTANT: réduit pour laisser plus d'espace au menu */
+/* Centered logo with flex grow for menu */
 .nav-logo-block{
   display:flex;
   align-items:center;
@@ -99,7 +99,6 @@ p{ margin-bottom:1rem; }
   min-width:0;
   text-decoration:none;
   flex:0 0 auto;              /* ne s'étire pas */
-  max-width:380px;            /* réduit de 520px à 380px */
 }
 
 .nav-logo-img{
@@ -136,13 +135,14 @@ p{ margin-bottom:1rem; }
   color:rgba(255,255,255,.74);
 }
 
-/* Menu desktop */
+/* Menu desktop - flex: 1 makes it take available space */
 .nav-menu{
   list-style:none;
   display:flex;
   align-items:center;
   gap:14px;
-  margin-left:auto;           /* pousse le menu à droite */
+  flex:1;
+  justify-content:flex-end;
 }
 
 .nav-menu a{
@@ -581,6 +581,7 @@ p{ margin-bottom:1rem; }
     gap:18px;
     transition:var(--transition);
     padding:24px;
+    flex:unset;
   }
 
   .nav-menu.active{ right:0; }
